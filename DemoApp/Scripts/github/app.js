@@ -8,7 +8,8 @@
     self.commits = ko.observableArray([
       {
         commit: {
-          message: "First Commit"
+          message: "First Commit",
+          files: ko.observableArray()
         },
         committer: {
           login: "llaughlin"
@@ -17,7 +18,8 @@
         sha: ko.observable("123")
       }, {
         commit: {
-          message: "Second Commit"
+          message: "Second Commit",
+          files: ko.observableArray()
         },
         committer: {
           login: "lambdatime"
@@ -33,15 +35,15 @@
       return ko.mapping.fromJS(window.commitData, {}, self.commits);
     };
     self.getFiles = function(commit) {
-      return console.log(commit);
+      console.log(commit);
+      return commit.files = ko.observable(window.fileData.files);
     };
     return this;
   };
 
   $(function() {
     window.viewModel = new ViewModel();
-    ko.applyBindings(viewModel);
-    return $('.commitFiles.collapse').on('show', function() {});
+    return ko.applyBindings(viewModel);
   });
 
   window.commitData = [

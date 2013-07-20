@@ -5,8 +5,8 @@ ViewModel = ->
     self.repoName = ko.observable("llaughlin/demoapp")
     self.commits = ko.observableArray(
         [
-            {commit:{message: "First Commit"}, committer:{login: "llaughlin"}, timestamp: "2h", sha: ko.observable("123")}
-            {commit:{message: "Second Commit"}, committer:{login: "lambdatime"}, timestamp: "3h", sha: ko.observable("456")}
+            {commit:{message: "First Commit", files: ko.observableArray()}, committer:{login: "llaughlin"}, timestamp: "2h", sha: ko.observable("123")}
+            {commit:{message: "Second Commit", files: ko.observableArray()}, committer:{login: "lambdatime"}, timestamp: "3h", sha: ko.observable("456")}
         ])
     
     self.getCommits = ->
@@ -18,10 +18,10 @@ ViewModel = ->
         #)
         ko.mapping.fromJS(window.commitData, {}, self.commits)
 
-    self.getFiles = (commit) ->
+    self.getFiles = (commit) -> 
         console.log(commit)
-
-
+        
+        commit.files = ko.observable(window.fileData.files)
 
     return @
  
@@ -31,10 +31,7 @@ $( ->
     window.viewModel = new ViewModel()
     ko.applyBindings(viewModel)
 
-    $('.commitFiles.collapse').on('show', -> 
-        
-    )
-
+    
 )
 
 window.commitData = 
