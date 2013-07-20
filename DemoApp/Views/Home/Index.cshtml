@@ -15,16 +15,21 @@
     <div class="row" style="margin-bottom: 10px">
         <div class="span5"></div>
         <div class="span2">
-            <a class="btn btn-success btn-large btn-block" data-bind="click: getCommits" href="#"><i class="icon-download icon-white"></i> Fetch!</a>            
+            <a class="btn btn-success btn-large btn-block" data-bind="click: getCommits" href="#">
+                <i class="icon-download icon-white"></i>Fetch!
+            </a>
         </div>
         <div class="span5"></div>
     </div>
-    
+
     <table id="commitList" class="table table-striped">
         <tbody data-bind="foreach: commits">
             <tr class="row">
                 <td class="span12">
-                    <button type="button" class="btn btn-primary pull-right" data-bind="click: $root.getFiles, attr: { 'data-target': '#' + sha() }" data-toggle="collapse">View Files</button>
+                    <button type="button" class="btn btn-primary pull-right"
+                        data-bind="click: $root.getFiles, attr: { 'data-target': '#' + sha() }"
+                        data-toggle="collapse">
+                        View Files</button>
                     <h4 data-bind="text: commit.message"></h4>
                     <div>
                         Committed by <span data-bind="text: committer.login"></span>
@@ -43,10 +48,10 @@
                             <tbody data-bind="foreach: commit.files">
                                 <tr>
                                     <td><a class="filename" data-bind="text: filename, attr: { href: blob_url }"></a></td>
-                                    <td><span class="badge" data-bind="text: status, css: {
-                                        'badge-success': status() == 'added',
-                                        'badge-important': status() == 'removed',
-                                        'badge-info': status() == 'modified'}"></span></td>
+                                    <td>
+                                        <span class="badge"
+                                            data-bind="text: status, attr: { class: badgeStatus }"></span>
+                                    </td>
                                     <td><span><i class="icon-plus"></i><span data-bind="text: additions"></span></span></td>
                                     <td><span><i class="icon-minus"></i><span data-bind="text: deletions"></span></span></td>
                                     <td><span><i class="icon-pencil"></i><span data-bind="text: changes"></span></span></td>
