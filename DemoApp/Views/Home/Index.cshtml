@@ -1,4 +1,48 @@
-﻿
-<div class="container">
-    <a class="btn btn-large btn-success" href="#">Try Github today!</a>
+﻿<div class="container">
+    <div class="hero-unit">
+        <h1>Github Commit Viewer</h1>
+        <p>This application allows you to view a Github repository's commits and optionally view the files committed.</p>
+    </div>
+    <div class="row">
+        <div class="span4"></div>
+        <div class="span4">
+            <input data-bind="value: repoName" type="text" class="span4" placeholder="Github repository (<username>/<repoName>)" />
+        </div>
+        <div class="span4">
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 10px">
+        <div class="span5"></div>
+        <div class="span2">
+            <a class="btn btn-success btn-large btn-block" data-bind="click: getCommits" href="#"><i class="icon-download icon-white"></i> Fetch!</a>            
+        </div>
+        <div class="span5"></div>
+    </div>
+    
+    <table id="commitList" class="table table-striped"  data-bind="foreach: commits">
+        <tbody>
+            <tr class="row">
+                <td class="span11">
+                    <h4 data-bind="text: commit.message"></h4>
+                    <div>
+                        Committed by <span data-bind="text: committer.login"></span>
+                    </div>
+                    <div data-bind="attr: { id: sha }" class="commitFiles collapse">Files go here</div>
+                </td>
+                <td class="span1">
+                    <button type="button" class="btn btn-primary" data-bind="attr: { 'data-target': '#' + sha() }" data-toggle="collapse">View Files</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/app")
+}
