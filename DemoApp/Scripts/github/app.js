@@ -17,12 +17,17 @@
         _this = this;
       url = "https://api.github.com/repos/" + self.repoName() + "/commits";
       return $.get(url).done(function(data) {
+        $.each(data, function(i, elem) {
+          return $.extend(elem.commit, {
+            files: ko.observableArray()
+          });
+        });
         return ko.mapping.fromJS(data, {}, self.commits);
       });
     };
     self.getFiles = function(commit) {
       var url;
-      if (!commit.commit.files) {
+      if (!commit.commit.files.length) {
         url = "https://api.github.com/repos/" + self.repoName() + "/commits/" + commit.sha();
         /*$.get(url)
         .done((data) =>

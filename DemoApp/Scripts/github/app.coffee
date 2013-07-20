@@ -18,13 +18,16 @@ ViewModel = ->
         $.get(url)
         .done((data) =>
             #console.log(data)
+            $.each(data, (i, elem) ->
+                $.extend(elem.commit, {files: ko.observableArray()})
+            )
             ko.mapping.fromJS(data, {}, self.commits)
         )
         #ko.mapping.fromJS(window.commitData, {}, self.commits)
 
     self.getFiles = (commit) -> 
         #console.log(commit)
-        if not commit.commit.files
+        if not commit.commit.files.length
             url = "https://api.github.com/repos/" + self.repoName() + "/commits/" + commit.sha()
             ###$.get(url)
             .done((data) =>

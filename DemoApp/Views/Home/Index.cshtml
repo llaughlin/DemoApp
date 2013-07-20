@@ -44,9 +44,9 @@
                                 <tr>
                                     <td><a class="filename" data-bind="text: filename, attr: { href: blob_url }"></a></td>
                                     <td><span class="badge" data-bind="text: status, css: {
-                                        'badge-success': status == 'added',
-                                        'badge-important': status == 'removed',
-                                        'badge-info': status == 'modified'}"></span></td>
+                                        'badge-success': status() == 'added',
+                                        'badge-important': status() == 'removed',
+                                        'badge-info': status() == 'modified'}"></span></td>
                                     <td><span><i class="icon-plus"></i><span data-bind="text: additions"></span></span></td>
                                     <td><span><i class="icon-minus"></i><span data-bind="text: deletions"></span></span></td>
                                     <td><span><i class="icon-pencil"></i><span data-bind="text: changes"></span></span></td>
