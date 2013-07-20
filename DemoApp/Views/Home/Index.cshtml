@@ -1,7 +1,7 @@
 ﻿<div class="container">
     <div class="hero-unit">
         <h1>Github Commit Viewer</h1>
-        <p>This application allows you to view a Github repository's commits and optionally view the files committed.</p>
+        <p>This application allows you to view a Github repository's commits and optionally view the files that were modified.</p>
     </div>
     <div class="row">
         <div class="span4"></div>
@@ -20,20 +20,40 @@
         <div class="span5"></div>
     </div>
     
-    <table id="commitList" class="table table-striped"  data-bind="foreach: commits">
-        <tbody>
+    <table id="commitList" class="table table-striped">
+        <tbody data-bind="foreach: commits">
             <tr class="row">
-                <td class="span10">
+                <td class="span12">
+                    <button type="button" class="btn btn-primary pull-right" data-bind="click: $root.getFiles, attr: { 'data-target': '#' + sha() }" data-toggle="collapse">View Files</button>
                     <h4 data-bind="text: commit.message"></h4>
                     <div>
                         Committed by <span data-bind="text: committer.login"></span>
                     </div>
-                    <div data-bind="foreach: commit.files, attr: { id: sha }" class="commitFiles collapse">
-                        <span data-bind="text: filename"></span>
+                    <div data-bind="attr: { id: sha }" class="collapse">
+                        <table class="table table-striped commitFiles ">
+                            <thead>
+                                <tr>
+                                    <td>Filename</td>
+                                    <td>Status</td>
+                                    <td>Additions</td>
+                                    <td>Deletions</td>
+                                    <td>Changes</td>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: commit.files">
+                                <tr>
+                                    <td><a class="filename" data-bind="text: filename, attr: { href: blob_url }"></a></td>
+                                    <td><span class="badge" data-bind="text: status, css: {
+                                        'badge-success': status == 'added',
+                                        'badge-important': status == 'removed',
+                                        'badge-info': status == 'modified'}"></span></td>
+                                    <td><span><i class="icon-plus"></i><span data-bind="text: additions"></span></span></td>
+                                    <td><span><i class="icon-minus"></i><span data-bind="text: deletions"></span></span></td>
+                                    <td><span><i class="icon-pencil"></i><span data-bind="text: changes"></span></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </td>
-                <td class="span2">
-                    <button type="button" class="btn btn-primary" data-bind="click: $root.getFiles, attr: { 'data-target': '#' + sha() }" data-toggle="collapse">View Files</button>
                 </td>
             </tr>
         </tbody>

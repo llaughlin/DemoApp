@@ -26,7 +26,8 @@ namespace DemoApp
                 "~/Scripts/app/ajaxlogin.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                "~/Scripts/github/app.js"));
+                "~/Scripts/github/app.js",
+                "~/Scripts/github/data.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                "~/Scripts/bootstrap.js"));
