@@ -3,10 +3,18 @@
         <h1>Github Commit Viewer</h1>
         <p>This application allows you to view a Github repository's commits and optionally view the files that were modified.</p>
     </div>
-    <div class="row">
+    
+    <div  data-bind="foreach: alerts">
+        <div data-bind="css: severity">
+            <button type="button" class="close" data-dismiss="alert" >&times;</button>
+            <strong data-bind="text: title"></strong> <span data-bind="text: message"></span>
+        </div>
+    </div>
+
+    <div  class="row">
         <div class="span4"></div>
         <div class="span4">
-            <input data-bind="value: repoName" type="text" class="span4" placeholder="Github repository (<username>/<repoName>)" />
+            <input id="repoName" data-bind="value: repoName" type="text" class="span4" placeholder="Enter the Github repository" />
         </div>
         <div class="span4">
         </div>

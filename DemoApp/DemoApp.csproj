@@ -262,18 +262,11 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\github\app.coffee" />
-    <Content Include="Scripts\github\data.coffee" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\github\app.js">
       <DependentUpon>app.coffee</DependentUpon>
-    </Content>
-    <Content Include="Scripts\github\data.js">
-      <DependentUpon>data.coffee</DependentUpon>
-    </Content>
-    <Content Include="Scripts\github\data.min.js">
-      <DependentUpon>data.coffee</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

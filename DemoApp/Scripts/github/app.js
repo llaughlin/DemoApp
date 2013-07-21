@@ -1,5 +1,11 @@
 ﻿(function() {
-  var ViewModel, commitModel, fileModel;
+  var ViewModel, alert, alertModel, commitModel, fileModel;
+
+  alertModel = function(title, message, severity) {
+    this.title = ko.observable(title);
+    this.message = ko.observable(message);
+    this.severity = ko.observable(severity != null ? severity : "alert alert-error");
+  };
 
   commitModel = function(data) {
     ko.mapping.fromJS(data, {}, this);
@@ -22,14 +28,23 @@
     }, this);
   };
 
+  alert = function(title, message, severity) {
+    viewModel.alerts.push(new alertModel(title, message, severity));
+  };
+
   ViewModel = function() {
     var self;
     self = this;
-    self.repoName = ko.observable("llaughlin/demoapp");
+    self.repoName = ko.observable();
     self.commits = ko.observableArray();
+    self.alerts = ko.observableArray();
     self.getCommits = function() {
       var url,
         _this = this;
+      if (!self.repoName().length) {
+        alert("Please specify a repository");
+        return;
+      }
       url = "https://api.github.com/repos/" + self.repoName() + "/commits";
       return $.get(url).done(function(data) {
         var mapping;
@@ -41,6 +56,8 @@
           }
         };
         return ko.mapping.fromJS(data, mapping, self.commits);
+      }).fail(function(data) {
+        return alert("Error when fetching commits!", data.statusText);
       });
     };
     self.getFiles = function(commit) {
@@ -57,6 +74,8 @@
             }
           };
           return ko.mapping.fromJS(data, mapping, commit.commit);
+        }).fail(function(data) {
+          return alert("Error when fetching files!", data.statusText);
         });
       }
     };
@@ -65,7 +84,10 @@
 
   $(function() {
     window.viewModel = new ViewModel();
-    return ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel);
+    $('#repoName').tooltip({
+      title: "Format: <username>/<reponame>"
+    });
   });
 
 }).call(this);
