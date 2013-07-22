@@ -41,7 +41,7 @@
     self.getCommits = function() {
       var url,
         _this = this;
-      if (!self.repoName().length) {
+      if (!self.repoName.length) {
         alert("Please specify a repository");
         return;
       }

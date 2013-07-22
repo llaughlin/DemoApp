@@ -33,9 +33,8 @@ ViewModel = ->
     self.alerts = ko.observableArray()
     
     self.getCommits = ->
-        if not self.repoName().length
+        if not self.repoName.length
             alert("Please specify a repository")
-            
             return
         url = "https://api.github.com/repos/" + self.repoName() + "/commits"
         $.get(url)
