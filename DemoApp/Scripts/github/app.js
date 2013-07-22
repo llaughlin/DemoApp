@@ -39,9 +39,9 @@
     self.commits = ko.observableArray();
     self.alerts = ko.observableArray();
     self.getCommits = function() {
-      var url,
+      var url, _ref,
         _this = this;
-      if (!self.repoName.length) {
+      if (!((_ref = self.repoName()) != null ? _ref.length : void 0)) {
         alert("Please specify a repository");
         return;
       }
